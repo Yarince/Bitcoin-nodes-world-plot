@@ -22,7 +22,7 @@ class LinkCreator:
         graph = Graph()
 
         len_graph = 0
-        while not graph.is_connected() or d < 4000 or len_graph < 10:
+        while (not graph.is_connected() or d < 4000 or len_graph < 10):  # or self.total_links < 300:
             graph = Graph()
             graph.add_extra_relays(self.node_handler.get_extra_relays())
             for node1, node2 in combinations:

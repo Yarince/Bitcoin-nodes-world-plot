@@ -10,6 +10,7 @@ np.random.seed(42)
 creator = LinkCreator()
 
 graph = creator.create_links()
+creator.print_total_links()
 parser = NodeHandler()
 
 # create new figure, axes instances.
@@ -26,8 +27,8 @@ ocean_map = (plt.get_cmap('ocean'))(210)
 cmap = plt.get_cmap('gist_earth')
 
 # call the basemap and use orthographic projection at viewing angle
-m = Basemap(projection='ortho',
-            lat_0=lat_viewing_angle, lon_0=lon_viewing_angle)
+m = Basemap(projection='merc', llcrnrlat=-80, urcrnrlat=80,
+            llcrnrlon=-180, urcrnrlon=180, lat_ts=20, resolution='c')
 
 start: Node
 for start, nodes in graph.graph.items():
