@@ -1,7 +1,4 @@
 import json
-import os
-import random
-from collections import defaultdict
 
 import requests
 
@@ -20,14 +17,14 @@ class JsonParser:
                     timestamp_data["results"][0]["timestamp"]) + "/").text)
 
         # Write to file
-        f = open("../reachableNodes.json2", "w")
+        f = open("../reachableNodes (1).json", "w")
         f.write(json.dumps(data, indent=4))
         f.close()
 
     @staticmethod
     def load_nodes_from_file():
         nodes = []
-        f = open("../reachableNodes.json", "r")
+        f = open("reachableNodes.json", "r")
         # f = open("smallNodes.json", "r")
         data = json.loads(f.read())
         f.close()

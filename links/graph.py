@@ -3,8 +3,7 @@
 from collections import defaultdict
 
 # This class represents a directed graph using adjacency list representation
-from links.create_links import LinkCreator
-from links.priodict import priorityDictionary
+from links import priorityDictionary, DistanceCalculator
 
 
 class Graph:
@@ -143,8 +142,8 @@ class Graph:
 
     def add_extra_relays(self, extra_relays):
         self.add_edge(extra_relays[0], extra_relays[1],
-                      LinkCreator.great_distance_calc(extra_relays[0], extra_relays[1]))
+                      DistanceCalculator.great_distance_calc(extra_relays[0], extra_relays[1]))
         self.add_edge(extra_relays[1], extra_relays[2],
-                      LinkCreator.great_distance_calc(extra_relays[1], extra_relays[2]))
+                      DistanceCalculator.great_distance_calc(extra_relays[1], extra_relays[2]))
 
 # This code is contributed by Neelam Yadav, Divyanshu Mehta and Yarince Martis

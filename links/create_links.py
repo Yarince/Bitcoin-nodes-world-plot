@@ -1,22 +1,10 @@
 import itertools
-from math import radians, cos, sin, acos
 
-from links import Graph
-from nodes_fetcher import Node, NodeHandler
+from links import Graph, DistanceCalculator
+from nodes_fetcher import NodeHandler
 
 
 class LinkCreator:
-
-    @staticmethod
-    def great_distance_calc(node_one: Node, node_two: Node):
-        slon = radians(node_one.latitude)
-        slat = radians(node_one.longitude)
-        elon = radians(node_two.latitude)
-        elat = radians(node_two.longitude)
-
-        dist = 6371.01 * acos(sin(slat) * sin(elat) + cos(slat) * cos(elat) * cos(slon - elon))
-
-        return dist
 
     def __init__(self):
         self.node_handler = NodeHandler()
@@ -34,11 +22,11 @@ class LinkCreator:
         graph = Graph()
 
         len_graph = 0
-        while (not graph.is_connected() or d < 4000 or len_graph < 10):
+        while not graph.is_connected() or d < 4000 or len_graph < 10:
             graph = Graph()
             graph.add_extra_relays(self.node_handler.get_extra_relays())
             for node1, node2 in combinations:
-                distance_calc = self.great_distance_calc(node1, node2)
+                distance_calc = DistanceCalculator.great_distance_calc(node1, node2)
                 if distance_calc <= d:
                     graph.add_edge(node1, node2, distance_calc)
             d *= 1.2
@@ -74,16 +62,9 @@ if __name__ == '__main__':
     creator = LinkCreator()
     # creator.create_links()
 
-    # iter = graph.__iter__()
-    # start = next(iter)
-    # end = next(iter)
-    # nodes_distance, _ = graph.Dijkstra(graph, start, end)
-    # for node, x in nodes_distance.items():
-    #     print(str(node) + " " + str(x))
-
-    routes = creator.create_routes()
-    graph = creator.graph
-
-    for start, dist in routes.items():
-        graph.printSolution(start, dist)
-    creator.print_total_links()
+    # routes = creator.create_routes()
+    # graph = creator.graph
+    #
+    # for start, dist in routes.items():
+    #     graph.printSolution(start, dist)
+    # creator.print_total_links()
